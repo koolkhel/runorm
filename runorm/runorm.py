@@ -21,7 +21,7 @@ class RUNorm:
         self.rule_normalizer = RuleNormalizer()
         self.numbers_normalizer = Numbers2Words()
         self.re_tokens = re.compile(r"(?:[.,!?]|[а-яА-Я]\S*|-?\d\S*(?:\.\d+)?|[^а-яА-Я\d\s-]+)\s*")
-        self.re_normalization = re.compile(r"[^a-zA-Z0-9\sа-яА-ЯёЁ.,!?:;""''(){}\[\]«»„“”-]")
+        self.re_normalization = re.compile(r"[^a-zA-Z0-9\sа-яА-ЯёЁ.,!?:;""''(){}[]«»„“”-]")
         self.paths = {
             "tagger": "RUNorm/RUNorm-tagger",
             "kirillizator": "RUNorm/RUNorm-kirillizator",
@@ -107,7 +107,7 @@ class RUNorm:
         etid = 0
         token_to_add = ""
         for token in self.process_sentence(text) + [""]:
-            if not re.search("[a-zA-Z\d]", token):
+            if not re.search(r"[a-zA-Z\d]", token):
                 if token_to_add:
                     end_match = re.search(r"(.+?)(\W*)$", token_to_add, re.M).groups()
                     if self.is_english(end_match[0].strip()):
